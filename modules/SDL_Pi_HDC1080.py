@@ -12,7 +12,8 @@
 #constants
 
 # I2C Address
-HDC1080_ADDRESS =                       (0x40)    # 1000000 
+#! 0x40 - i2c address of the sensor (hdc1080 and cristal liquid display must to be different)
+HDC1080_ADDRESS =                       (0x40)    # 1000000
 # Registers
 HDC1080_TEMPERATURE_REGISTER =          (0x00)
 HDC1080_HUMIDITY_REGISTER =             (0x01)

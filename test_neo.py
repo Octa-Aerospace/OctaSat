@@ -44,3 +44,5 @@ def GPS():
     mylat,mylon = parseGPS(dat)
 
     return mylat, mylon
+
+print(GPS())
