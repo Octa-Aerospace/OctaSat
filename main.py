@@ -7,8 +7,11 @@ if __name__ == '__main__':
         try:
             OctaSat.start()
 
-        except OSError:
-            print('\n[ ! ] Warning: OSError, running anyways :).\n')
+        # except OSError:
+        #     print('\n[ ! ] Warning: OSError, running anyways :).\n')
+
+        except TypeError:
+            print("GPS data failed")
 
         except KeyboardInterrupt:
             print("\n[ ! ] Exiting\n")
