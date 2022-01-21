@@ -15,7 +15,7 @@ from time import sleep
 #! NEO6M Module
 from datetime import *
 import serial
-import pynmea2
+# import pynmea2
 
 #! HDC1080 Sensor
 import sys
@@ -26,7 +26,7 @@ from mpu9250_jmdev.mpu_9250 import MPU9250
 from mpu9250_jmdev.registers import *
 
 #! EXTRA PACKAGES
-import magic
+# import magic
 
 class BMP:
     def __init__(self):
@@ -69,40 +69,52 @@ class Buzzer:
         GPIO.output(self.pin, False)
 
 class NEO: #! maintenance
+    def __init__(self):
+        self.mport = '/dev/ttyAMA0'                     #choose your com port on which you connected your neo 6m GPS
+
+    def parseGPS(self, data):
+        if data[0:6] == "$GPGGA":
+            s = data.split(",")
+            if s[7] == '0' or s[7]=='00':
+                print ("no satellite data available")
+                return "", ""
+            time = s[1][0:2] + ":" + s[1][2:4] + ":" + s[1][4:6]
+            #print("-----------")
+            lat = self.decode(s[2])
+            lon = self.decode(s[4])
+            #alt = decode(s)
+            # print(lat, lon)
+            return lat, lon
+            #return lat,lon,
+        # else:
+        #     return "", ""
+
+    def decode(self, coord):
+        l = list(coord)
+        for i in range(0,len(l)-1):
+                if l[i] == "." :
+                        break
+        base = l[0:i-2]
+        degi = l[i-2:i]
+        degd = l[i+1:]
+        # print(base,"   ",degi,"   ",degd)
+        baseint = int("".join(base))
+        degiint = int("".join(degi))
+        degdint = float("".join(degd))
+        degdint = degdint / (10**len(degd))
+        degs = degiint + degdint
+        full = float(baseint) + (degs/60)
+        # print(full)
+
+        return full
+
     def read(self):
-        port="/dev/ttyAMA0"
-        ser=serial.Serial(port, baudrate=9600, timeout=1)
-        dataout = pynmea2.NMEAStreamReader()
-        # newdata=ser.readline()
+        ser = serial.Serial(self.mport, 9600, timeout=2)
+        dat = ser.readline().decode()
+        # print(dat)
+        mylat, mylon = self.parseGPS(dat)
 
-        # print("Data Type: ", type(ser))
-        # print(ser)
-
-        newdata = ser.readline().decode("utf-7")
-        # newdata = ser.readline().split("$GPGGA,",1)[1]
-        # newdata = (ser.readline()[2:].decode()).strip()
-
-        # m = magic.Magic(mine_encoding=True)
-        # encoding = m.from_buffer(newdata)
-        # print(encoding)
-
-        print("Data Type: ", type(newdata))
-        print(newdata)
-
-        if (newdata[0:6]) == ("$GPGGA"): # or GPGGA or GPRMC
-            newmsg=pynmea2.parse(newdata)
-            lat=newmsg.latitude
-            lng=newmsg.longitude
-            # gps = "Latitude=" + str(lat) + "and Longitude=" + str(lng)
-            return lat, lng
-
-        else:
-            # print(newdata[0:6])
-            # print("<--------------------->")
-            # print(str(newdata))
-            # print("<--------------------->")
-            # print(list(newdata))
-            return "", ""
+        return mylat*(-1), mylon*(-1)
 
 class HDC:
     def __init__(self):
