@@ -77,22 +77,17 @@ class OctaSat:
             'time': self.Time()
         }
 
-<<<<<<< HEAD
         # save data in memory
         self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
 
         # take a picture
         # print(self.Camera_Shot())
-=======
+
+        # save data in OBC memory
         self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
->>>>>>> 188b6e32ea0136f2b25b0260d76b9d0f5e01b0a3
 
         # * formating payload ready to send
         payload = self.LORA.prepare_payload(data)
 
-        # * send payload and return the confimation
-<<<<<<< HEAD
-=======
         # print(payload)
->>>>>>> 188b6e32ea0136f2b25b0260d76b9d0f5e01b0a3
         print(self.LORA_send(payload))
