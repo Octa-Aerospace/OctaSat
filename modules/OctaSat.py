@@ -37,9 +37,9 @@ class OctaSat:
         sleep(2)  # ! same the above
         return '[ ok ] Successfully beeped'
 
-    def Camera_Shot(self, num=1, route="/home/pi/OctaSat-Demo/data/images/"):
+    def Camera_Shot(self, num=1, route="/home/pi/OctaSat/data/images/"):
         while True:
-            if not os.path.isfile(route + "show_{}".format(num) + ".jpg"):
+            if not os.path.isfile(route + "shot_{}".format(num) + ".jpg"):
                 self.Camera.capture(route + "shot_{}".format(num) + ".jpg")
                 break
             else:
@@ -61,14 +61,14 @@ class OctaSat:
         return '[ ok ] Successfully saved'
 
     def start(self):
-        latitude, longitude = self.NEO_read() #! maintenance
+        # latitude, longitude = self.NEO_read() #! maintenance
         hdc_temperature, humidity = self.HDC_read()
         bmp_temperature, pressure, altitude = self.BMP_read()
         self.Buzzer_beep()  # * just beep
 
         data = {
-            'latitude': latitude, #! maintenance
-            'longitude': longitude, #! maintenance
+            # 'latitude': latitude, #! maintenance
+            # 'longitude': longitude, #! maintenance
             'hdc_temperature': hdc_temperature,
             'bmp_temperature': bmp_temperature,
             'humidity': humidity,
@@ -78,13 +78,13 @@ class OctaSat:
         }
 
         # save data in memory
-        self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
+        self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
 
         # take a picture
-        # print(self.Camera_Shot())
+        print(self.Camera_Shot())
 
         # save data in OBC memory
-        self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
+        self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
 
         # * formating payload ready to send
         payload = self.LORA.prepare_payload(data)
