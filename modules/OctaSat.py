@@ -37,9 +37,9 @@ class OctaSat:
         sleep(2)  # ! same the above
         return '[ ok ] Successfully beeped'
 
-    def Camera_Shot(self, num=1, route="/home/pi/OctaSat-Demo/data/images/"):
+    def Camera_Shot(self, num=1, route="/home/pi/OctaSat/data/images/"):
         while True:
-            if not os.path.isfile(route + "show_{}".format(num) + ".jpg"):
+            if not os.path.isfile(route + "shot_{}".format(num) + ".jpg"):
                 self.Camera.capture(route + "shot_{}".format(num) + ".jpg")
                 break
             else:
@@ -61,30 +61,30 @@ class OctaSat:
         return '[ ok ] Successfully saved'
 
     def start(self):
-        latitude, longitude = self.NEO_read() #! maintenance
+        # latitude, longitude, neo_altitude, num_satellites = self.NEO_read() #! maintenance
+        latitude, longitude = self.NEO_read()
         hdc_temperature, humidity = self.HDC_read()
-        bmp_temperature, pressure, altitude = self.BMP_read()
+        bmp_temperature, pressure, mpu_altitude = self.BMP_read()
         self.Buzzer_beep()  # * just beep
 
         data = {
             'latitude': latitude, #! maintenance
             'longitude': longitude, #! maintenance
+            # 'neo_altitude': neo_altitude, #! maintenance
+            # 'num_satellites': num_satellites, #! maintenance
             'hdc_temperature': hdc_temperature,
             'bmp_temperature': bmp_temperature,
             'humidity': humidity,
             'pressure': pressure,
-            'altitude': altitude,
+            'mpu_altitude': mpu_altitude,
             'time': self.Time()
         }
 
         # save data in memory
-        self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
+        self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
 
         # take a picture
-        # print(self.Camera_Shot())
-
-        # save data in OBC memory
-        self.black_box(file_name='/home/pi/OctaSat-Demo/data/OctaCSV.csv', data=data)
+        self.Camera_Shot()
 
         # * formating payload ready to send
         payload = self.LORA.prepare_payload(data)

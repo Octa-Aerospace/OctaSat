@@ -77,7 +77,7 @@ class NEO: #! maintenance
             s = data.split(",")
             if s[7] == '0' or s[7]=='00':
                 print ("no satellite data available")
-                return "", ""
+                return 
             time = s[1][0:2] + ":" + s[1][2:4] + ":" + s[1][4:6]
             #print("-----------")
             lat = self.decode(s[2])
