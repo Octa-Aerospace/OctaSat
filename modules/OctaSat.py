@@ -66,7 +66,7 @@ class OctaSat:
         # latitude, longitude = self.NEO_read() #! maintenance
         hdc_temperature, humidity = self.HDC_read()
         bmp_temperature, pressure, mpu_altitude = self.BMP_read()
-        self.Buzzer_beep()  # * just beep
+        self.Buzzer_beep() # * just beep
 
         data = {
             'latitude': latitude, #! maintenance
@@ -88,7 +88,6 @@ class OctaSat:
 
         # take a picture
         self.Camera_Shot()
-        print(self.Camera_Shot())
 
         # save data in OBC memory
         self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
