@@ -62,15 +62,15 @@ class OctaSat:
 
     def start(self):
         # latitude, longitude, neo_altitude, num_satellites = self.NEO_read() #! maintenance
-        latitude, longitude = self.NEO_read()
+        # latitude, longitude = self.NEO_read()
         # latitude, longitude = self.NEO_read() #! maintenance
         hdc_temperature, humidity = self.HDC_read()
         bmp_temperature, pressure, mpu_altitude = self.BMP_read()
         self.Buzzer_beep() # * just beep
 
         data = {
-            'latitude': latitude, #! maintenance
-            'longitude': longitude, #! maintenance
+            # 'latitude': latitude, #! maintenance
+            # 'longitude': longitude, #! maintenance
             # 'neo_altitude': neo_altitude, #! maintenance
             # 'num_satellites': num_satellites, #! maintenance
             # 'latitude': latitude, #! maintenance
@@ -83,17 +83,14 @@ class OctaSat:
             'time': self.Time()
         }
 
-        # save data in memory
-        self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
+        # save data in OBC memory
+        print(self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data))
 
         # take a picture
-        self.Camera_Shot()
-
-        # save data in OBC memory
-        self.black_box(file_name='/home/pi/OctaSat/data/OctaCSV.csv', data=data)
+        print(self.Camera_Shot())
 
         # * formating payload ready to send
         payload = self.LORA.prepare_payload(data)
 
-        # print(payload)
         print(self.LORA_send(payload))
+        print(payload, end="\n\n")
