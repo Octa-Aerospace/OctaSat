@@ -61,11 +61,7 @@ class OctaSat:
         return '[ ok ] Successfully saved'
 
     def start(self):
-<<<<<<< HEAD
         latitude, longitude, neo_altitude, num_satellites = self.NEO_read() #! maintenance
-=======
-        # latitude, longitude, neo_altitude, num_satellites = self.NEO_read() #! maintenance
->>>>>>> 95f79aedb4cf0eacbf6ba7aa5d7df29d20ee9b04
         # latitude, longitude = self.NEO_read()
         # latitude, longitude = self.NEO_read() #! maintenance
         hdc_temperature, humidity = self.HDC_read()
@@ -73,17 +69,10 @@ class OctaSat:
         self.Buzzer_beep() # * just beep
 
         data = {
-<<<<<<< HEAD
             'latitude': latitude, #! maintenance
             'longitude': longitude, #! maintenance
             'neo_altitude': neo_altitude, #! maintenance
             'num_satellites': num_satellites, #! maintenance
-=======
-            # 'latitude': latitude, #! maintenance
-            # 'longitude': longitude, #! maintenance
-            # 'neo_altitude': neo_altitude, #! maintenance
-            # 'num_satellites': num_satellites, #! maintenance
->>>>>>> 95f79aedb4cf0eacbf6ba7aa5d7df29d20ee9b04
             # 'latitude': latitude, #! maintenance
             # 'longitude': longitude, #! maintenance
             'hdc_temperature': hdc_temperature,
