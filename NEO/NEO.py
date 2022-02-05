@@ -7,14 +7,29 @@ class NEO:
 
     def get(self):
         ser = serial.Serial(self.mport, 9600, timeout=2)
+        # print(str(ser.readline()))
+        # print(ser.readline().decode(errors="ignore"))
 
         return str(ser.readline())
+        # return str(ser.readline().decode(errors="ignore"))
 
     def split_data(self):
         data = self.get()
-        while data[3:8] != "GPGGA":
+        for i in range(len(data)):
+            if data[i] == "G" and data[i+4] == "A":
+                # print(data[i:i+5])
+                data = data[i:-5]
+                break
+        while data[0:5] != "GPGGA":
+            # print(data)
             data = self.get()
-            if data[3:8] == "GPGGA":
+            for i in range(len(data)):
+                if data[i] == "G" and data[i+4] == "A":
+                    # print(data[i:i+5])
+                    data = data[i:-5]
+                    break
+            # print(data)
+            if data[0:5] == "GPGGA":
                 self.data = data.split(",")
                 # print(self.data)
                 self.name = "Global Postioning System Fix Data"
@@ -34,8 +49,10 @@ class NEO:
                 ]
 
                 return data
+            else:
+                print("GPGGA DON'T MATCH")
 
-        if data[3:8] == "GPGGA":
+        if data[0:5] == "GPGGA":
             self.data = data.split(",")
             # print(self.data)
             self.name = "Global Postioning System Fix Data"
@@ -97,10 +114,14 @@ class NEO:
         altitude = data["altitude"]
         num_satellites = data["num_satellites"]
 
-        return latitude, longitude, altitude, num_satellites
+        return [latitude, longitude, altitude, num_satellites]
 
-neo = NEO()
-# print(neo.split_data())
-# print(neo.coordinates())
-print(neo.full_data())
-# print(neo.read())
+# if __name__ == "__main__":
+#     neo = NEO()
+#     # print("[ ok ] NEO INSTANCE")
+#     while True:
+#         # print("[ loop ]")
+#         # print(neo.split_data())
+#         # print(neo.coordinates())
+#         # print(neo.full_data())
+#         print(neo.read())
