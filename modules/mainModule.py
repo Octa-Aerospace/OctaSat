@@ -114,28 +114,35 @@ class NEO:
 
     def decoder(self, coord):
         l = list(coord)
-        for i in range(0,len(l)-1):
-                if l[i] == "." :
-                        break
-        base = l[0:i-2]
-        degi = l[i-2:i]
-        degd = l[i+1:]
-        baseint = int("".join(base))
-        degiint = int("".join(degi))
-        degdint = float("".join(degd))
-        degdint = degdint / (10**len(degd))
-        degs = degiint + degdint
-        full = float(baseint) + (degs/60)
+        while len(l) != 0:
+            for i in range(0,len(l)-1):
+                    if l[i] == "." :
+                            break
+            base = l[0:i-2]
+            degi = l[i-2:i]
+            degd = l[i+1:]
+            baseint = int("".join(base))
+            degiint = int("".join(degi))
+            degdint = float("".join(degd))
+            degdint = degdint / (10**len(degd))
+            degs = degiint + degdint
+            full = float(baseint) + (degs/60)
 
-        return full
+            return full
 
     def coordinates(self):
-        lat = self.decoder(self.split_data()[0])
-        lon = self.decoder(self.split_data()[1])
-        alt = float(self.split_data()[2])
+        try:
+            lat = self.decoder(self.split_data()[0]) * -1
+            lon = self.decoder(self.split_data()[1]) * -1
+            alt = self.split_data()[2]
+        except TypeError:
+            lat = self.decoder(self.split_data()[0])
+            lon = self.decoder(self.split_data()[1])
+            alt = self.split_data()[2]
+
         # sat = int(self.split_data()[3]) # this increase the receive time in 2 secs
 
-        return -lat, -lon, alt
+        return lat, lon, alt
 
     def full_data(self):
         obj = {
