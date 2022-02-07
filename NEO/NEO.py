@@ -14,12 +14,7 @@ class NEO:
         # return str(ser.readline().decode(errors="ignore"))
 
     def split_data(self):
-        data = self.get()
-        for i in range(len(data)):
-            if data[i] == "G" and data[i+4] == "A":
-                # print(data[i:i+5])
-                data = data[i:-5]
-                break
+        data = ""
         while data[0:5] != "GPGGA":
             # print(data)
             data = self.get()
@@ -49,29 +44,6 @@ class NEO:
                 ]
 
                 return data
-            else:
-                print("GPGGA DON'T MATCH")
-
-        if data[0:5] == "GPGGA":
-            self.data = data.split(",")
-            # print(self.data)
-            self.name = "Global Postioning System Fix Data"
-            self.current_utc_time = data[1]
-            self.latitude_deg = self.data[2] # + self.data[3]
-            self.longitude_deg = self.data[4] # + self.data[5]
-            self.num_satellites = self.data[7]
-            self.horizontal_dilution_pos = self.data[8]
-            self.altitude = self.data[9]
-
-            data = [
-                self.latitude_deg,
-                self.longitude_deg,
-                self.altitude,
-                self.num_satellites,
-                self.horizontal_dilution_pos,
-            ]
-
-            return data
 
     def decoder(self, coord):
         l = list(coord)
@@ -93,8 +65,10 @@ class NEO:
     def coordinates(self):
         lat = self.decoder(self.split_data()[0])
         lon = self.decoder(self.split_data()[1])
+        alt = float(self.split_data()[2])
+        # sat = int(self.split_data()[3]) # this increase the receive time in 2 secs
 
-        return -lat, -lon
+        return -lat, -lon, alt
 
     def full_data(self):
         obj = {
@@ -122,6 +96,6 @@ class NEO:
 #     while True:
 #         # print("[ loop ]")
 #         # print(neo.split_data())
-#         # print(neo.coordinates())
+#         print(neo.coordinates())
 #         # print(neo.full_data())
-#         print(neo.read())
+#         # print(neo.read())

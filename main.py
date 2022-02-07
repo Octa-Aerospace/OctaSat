@@ -13,7 +13,7 @@ if __name__ == '__main__':
         #
             # print("\n[ ! ] Warning: OSError detected, rebooting system.\n")
         #     obs: rebot the system can be touble with image names (fit it)
-            os.system("reboot") #* the error should be added to the csv file
+            os.system("sudo reboot") #* the error should be added to the csv file
 
         except TypeError:
             print("GPS data failed") # this should be registered too
@@ -23,4 +23,4 @@ if __name__ == '__main__':
             exit()
 
         except:
-            os.system("reboot") # this should be registered too
+            os.system("sudo reboot") # this should be registered too
