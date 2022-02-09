@@ -19,6 +19,6 @@ if __name__ == '__main__':
             exit()
 
         except Exception as e:
-            with open("error_log.txt", "a+") as file:
+            with open("/home/pi/OctaSat/data/error_log.txt", "a+") as file:
                 file.write("{0} at {1}".format(e, OctaSat.Time()))
             os.system("sudo reboot") # this should be registered too
