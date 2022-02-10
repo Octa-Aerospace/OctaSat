@@ -78,7 +78,6 @@ class NEO:
         for i in range(0,len(l)-1):
                 if l[i] == "." :
                         break
-<<<<<<< HEAD
         try:
             base = l[0:i-2]
             degi = l[i-2:i]
@@ -92,19 +91,6 @@ class NEO:
             return full
         except:
             return 0
-=======
-        base = l[0:i-2]
-        degi = l[i-2:i]
-        degd = l[i+1:]
-        baseint = int("".join(base))
-        degiint = int("".join(degi))
-        degdint = float("".join(degd))
-        degdint = degdint / (10**len(degd))
-        degs = degiint + degdint
-        full = float(baseint) + (degs/60)
-
-        return full
->>>>>>> df1aa42bdccac7502a6d5cb6503a6278522629c6
 
     def coordinates(self):
         lat = self.decoder(self.split_data()[0])
@@ -130,20 +116,9 @@ class NEO:
         longitude = data["longitude"]
         altitude = data["altitude"]
         num_satellites = data["num_satellites"]
+        horizontal_dilution_pos = data["horizontal_dilution_pos"]
 
-<<<<<<< HEAD
-        return latitude, longitude, altitude, num_satellites
-=======
-<<<<<<< HEAD
-        return latitude, longitude, altitude, num_satellites
-=======
-<<<<<<< HEAD
-        return latitude, longitude, altitude, num_satellites
-=======
-        return [latitude, longitude, altitude, num_satellites]
->>>>>>> f131f84dfd4f947dbc9193857f5402382284d694
->>>>>>> f27a0056fb4f62b324da9e1d32bca2b74c653e68
->>>>>>> df1aa42bdccac7502a6d5cb6503a6278522629c6
+        return latitude, longitude, altitude, num_satellites, horizontal_dilution_pos
 
 if __name__ == "__main__":
     neo = NEO()

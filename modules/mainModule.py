@@ -208,7 +208,6 @@ class NEO:
         for i in range(0,len(l)-1):
                 if l[i] == "." :
                         break
-<<<<<<< HEAD
         try:
             base = l[0:i-2]
             degi = l[i-2:i]
@@ -222,32 +221,15 @@ class NEO:
             return full
         except:
             return None
-=======
-        base = l[0:i-2]
-        degi = l[i-2:i]
-        degd = l[i+1:]
-        baseint = int("".join(base))
-        degiint = int("".join(degi))
-        degdint = float("".join(degd))
-        degdint = degdint / (10**len(degd))
-        degs = degiint + degdint
-        full = float(baseint) + (degs/60)
-
-        return full
->>>>>>> df1aa42bdccac7502a6d5cb6503a6278522629c6
 
     def coordinates(self):
         lat = self.decoder(self.split_data()[0])
         lon = self.decoder(self.split_data()[1])
 
-<<<<<<< HEAD
         if lat != None or lon != None:
             return -lat, -lon
         else:
             return "", ""
-=======
-        return -lat, -lon
->>>>>>> df1aa42bdccac7502a6d5cb6503a6278522629c6
 
     def full_data(self):
         obj = {
@@ -266,8 +248,9 @@ class NEO:
         longitude = data["longitude"]
         altitude = data["altitude"]
         num_satellites = data["num_satellites"]
+        horizontal_dilution_pos = data["horizontal_dilution_pos"]
 
-        return [latitude, longitude, altitude, num_satellites]
+        return [latitude, longitude, altitude, num_satellites, horizontal_dilution_pos]
 
 class HDC:
     def __init__(self):

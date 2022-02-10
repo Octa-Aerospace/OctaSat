@@ -62,7 +62,7 @@ class OctaSat:
         return '[ ok ] Successfully saved'
 
     def start(self):
-        latitude, longitude, neo_altitude, num_satellites = self.NEO_read() #! maintenance
+        latitude, longitude, neo_altitude, num_satellites, horizontal_dilution_pos = self.NEO_read() #! maintenance
         # latitude, longitude, neo_altitude = self.NEO_read()
         hdc_temperature, humidity = self.HDC_read()
         bmp_temperature, pressure, mpu_altitude = self.BMP_read()
@@ -73,6 +73,7 @@ class OctaSat:
             'longitude': longitude, #! maintenance
             'neo_altitude': neo_altitude, #! maintenance
             'num_satellites': num_satellites, #! maintenance
+            'horizontal_dilution_pos': horizontal_dilution_pos, #! maintenance
             'hdc_temperature': hdc_temperature,
             'bmp_temperature': bmp_temperature,
             'humidity': humidity,
