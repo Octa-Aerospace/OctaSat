@@ -21,5 +21,10 @@ if __name__ == '__main__':
         # for unknown errors
         except Exception as e:
             with open("/home/pi/OctaSat/data/error_log.txt", "a+") as file:
+<<<<<<< HEAD
                 file.write("{0} at {1}\n".format(e, OctaSat.Time()))
             os.system("sudo reboot")
+=======
+                file.write("{0} at {1}".format(e, OctaSat.Time()))
+            os.system("sudo reboot") # this should be registered too
+>>>>>>> f131f84dfd4f947dbc9193857f5402382284d694
