@@ -115,7 +115,15 @@ class NEO:
         altitude = data["altitude"]
         num_satellites = data["num_satellites"]
 
+<<<<<<< HEAD
         return latitude, longitude, altitude, num_satellites
+=======
+<<<<<<< HEAD
+        return latitude, longitude, altitude, num_satellites
+=======
+        return [latitude, longitude, altitude, num_satellites]
+>>>>>>> f131f84dfd4f947dbc9193857f5402382284d694
+>>>>>>> f27a0056fb4f62b324da9e1d32bca2b74c653e68
 
 if __name__ == "__main__":
     neo = NEO()

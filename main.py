@@ -23,3 +23,7 @@ if __name__ == '__main__':
             with open("/home/pi/OctaSat/data/error_log.txt", "a+") as file:
                 file.write("{0} at {1}\n".format(e, OctaSat.Time()))
             os.system("sudo reboot")
+<<<<<<< HEAD
+=======
+
+>>>>>>> f27a0056fb4f62b324da9e1d32bca2b74c653e68
