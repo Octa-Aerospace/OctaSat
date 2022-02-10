@@ -166,7 +166,6 @@ class NEO:
         for i in range(0,len(l)-1):
                 if l[i] == "." :
                         break
-<<<<<<< HEAD
         base = l[0:i-2]
         degi = l[i-2:i]
         degd = l[i+1:]
@@ -184,29 +183,6 @@ class NEO:
         lon = self.decoder(self.split_data()[1])
 
         return -lat, -lon
-=======
-        try:
-            base = l[0:i-2]
-            degi = l[i-2:i]
-            degd = l[i+1:]
-            baseint = int("".join(base))
-            degiint = int("".join(degi))
-            degdint = float("".join(degd))
-            degdint = degdint / (10**len(degd))
-            degs = degiint + degdint
-            full = float(baseint) + (degs/60)            
-            return full
-        except:
-            pass
-
-
-    def coordinates(self):
-        lat = self.decoder(self.split_data()[0])
-        lon = self.decoder(self.split_data()[1])
-        alt = self.split_data()[2]
-
-        return -lat, -lon, alt
->>>>>>> f131f84dfd4f947dbc9193857f5402382284d694
 
     def full_data(self):
         obj = {
