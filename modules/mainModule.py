@@ -81,7 +81,12 @@ class NEO:
         # return str(ser.readline().decode(errors="ignore"))
 
     def split_data(self):
-        data = ""
+        data = self.get()
+        for i in range(len(data)):
+            if data[i] == "G" and data[i+4] == "A":
+                # print(data[i:i+5])
+                data = data[i:-5]
+                break
         while data[0:5] != "GPGGA":
             # print(data)
             data = self.get()
@@ -112,37 +117,49 @@ class NEO:
 
                 return data
 
+        if data[0:5] == "GPGGA":
+            self.data = data.split(",")
+            # print(self.data)
+            self.name = "Global Postioning System Fix Data"
+            self.current_utc_time = data[1]
+            self.latitude_deg = self.data[2] # + self.data[3]
+            self.longitude_deg = self.data[4] # + self.data[5]
+            self.num_satellites = self.data[7]
+            self.horizontal_dilution_pos = self.data[8]
+            self.altitude = self.data[9]
+
+            data = [
+                self.latitude_deg,
+                self.longitude_deg,
+                self.altitude,
+                self.num_satellites,
+                self.horizontal_dilution_pos,
+            ]
+
+            return data
+
     def decoder(self, coord):
         l = list(coord)
-        while len(l) != 0:
-            for i in range(0,len(l)-1):
-                    if l[i] == "." :
-                            break
-            base = l[0:i-2]
-            degi = l[i-2:i]
-            degd = l[i+1:]
-            baseint = int("".join(base))
-            degiint = int("".join(degi))
-            degdint = float("".join(degd))
-            degdint = degdint / (10**len(degd))
-            degs = degiint + degdint
-            full = float(baseint) + (degs/60)
+        for i in range(0,len(l)-1):
+                if l[i] == "." :
+                        break
+        base = l[0:i-2]
+        degi = l[i-2:i]
+        degd = l[i+1:]
+        baseint = int("".join(base))
+        degiint = int("".join(degi))
+        degdint = float("".join(degd))
+        degdint = degdint / (10**len(degd))
+        degs = degiint + degdint
+        full = float(baseint) + (degs/60)
 
-            return full
+        return full
 
     def coordinates(self):
-        try:
-            lat = self.decoder(self.split_data()[0]) * -1
-            lon = self.decoder(self.split_data()[1]) * -1
-            alt = self.split_data()[2]
-        except TypeError:
-            lat = self.decoder(self.split_data()[0])
-            lon = self.decoder(self.split_data()[1])
-            alt = self.split_data()[2]
+        lat = self.decoder(self.split_data()[0])
+        lon = self.decoder(self.split_data()[1])
 
-        # sat = int(self.split_data()[3]) # this increase the receive time in 2 secs
-
-        return lat, lon, alt
+        return -lat, -lon
 
     def full_data(self):
         obj = {
