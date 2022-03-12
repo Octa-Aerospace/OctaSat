@@ -69,19 +69,11 @@ class OctaSat:
         self.Buzzer_beep() # * just beep
 
         data = {
-<<<<<<< HEAD
             'latitude': latitude,
             'longitude': longitude,
             'neo_altitude': neo_altitude,
             'num_satellites': num_satellites,
             'horizontal_dilution_pos' : horizontal_dilution_pos,
-=======
-            'latitude': latitude, #! maintenance
-            'longitude': longitude, #! maintenance
-            'neo_altitude': neo_altitude, #! maintenance
-            'num_satellites': num_satellites, #! maintenance
-            'horizontal_dilution_pos': horizontal_dilution_pos, #! maintenance
->>>>>>> 39727a35187c3335ba048180a5cf79b4a4d0f9ca
             'hdc_temperature': hdc_temperature,
             'bmp_temperature': bmp_temperature,
             'humidity': humidity,
