@@ -1,0 +1,4 @@
+latitude,longitude,neo_altitude,num_satellites,hdc_temperature,bmp_temperature,humidity,pressure,mpu_altitude,time
+,,,00,24.24,23.97,52.86,764.37,-582.1,"12/03, 08:00:00"
+,,,00,24.24,25.98,51.67,958.42,0.0,"12/03, 08:00:11"
+,,,00,24.24,26.08,50.98,958.41,-0.0,"12/03, 08:00:21"

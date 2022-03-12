@@ -18,7 +18,8 @@ if __name__ == '__main__':
             print("\n[ ! ] Exiting\n")
             exit()
 
+        # for unknown errors
         except Exception as e:
-            with open("error_log.txt", "a+") as file:
-                file.write("{0} at {1}".format(e, OctaSat.Time()))
-            os.system("sudo reboot") # this should be registered too
+            with open("/home/pi/OctaSat/data/error_log.txt", "a+") as file:
+                file.write("{0} at {1}\n\n".format(e, OctaSat.Time()))
+            os.system("sudo reboot")
