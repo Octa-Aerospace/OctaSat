@@ -116,6 +116,92 @@ class NEO:
                 ]
 
                 return data
+            else:
+                print("GPGGA DON'T MATCH")
+
+        if data[0:5] == "GPGGA":
+            self.data = data.split(",")
+            # print(self.data)
+            self.name = "Global Postioning System Fix Data"
+            self.current_utc_time = data[1]
+            self.latitude_deg = self.data[2] # + self.data[3]
+            self.longitude_deg = self.data[4] # + self.data[5]
+            self.num_satellites = self.data[7]
+            self.horizontal_dilution_pos = self.data[8]
+            self.altitude = self.data[9]
+
+            data = [
+                self.latitude_deg,
+                self.longitude_deg,
+                self.altitude,
+                self.num_satellites,
+                self.horizontal_dilution_pos,
+            ]
+
+            return data
+
+        if data[0:5] == "GPGGA":
+            self.data = data.split(",")
+            # print(self.data)
+            self.name = "Global Postioning System Fix Data"
+            self.current_utc_time = data[1]
+            self.latitude_deg = self.data[2] # + self.data[3]
+            self.longitude_deg = self.data[4] # + self.data[5]
+            self.num_satellites = self.data[7]
+            self.horizontal_dilution_pos = self.data[8]
+            self.altitude = self.data[9]
+
+            data = [
+                self.latitude_deg,
+                self.longitude_deg,
+                self.altitude,
+                self.num_satellites,
+                self.horizontal_dilution_pos,
+            ]
+
+            return data
+
+        if data[0:5] == "GPGGA":
+            self.data = data.split(",")
+            # print(self.data)
+            self.name = "Global Postioning System Fix Data"
+            self.current_utc_time = data[1]
+            self.latitude_deg = self.data[2] # + self.data[3]
+            self.longitude_deg = self.data[4] # + self.data[5]
+            self.num_satellites = self.data[7]
+            self.horizontal_dilution_pos = self.data[8]
+            self.altitude = self.data[9]
+
+            data = [
+                self.latitude_deg,
+                self.longitude_deg,
+                self.altitude,
+                self.num_satellites,
+                self.horizontal_dilution_pos,
+            ]
+
+            return data
+
+        if data[0:5] == "GPGGA":
+            self.data = data.split(",")
+            # print(self.data)
+            self.name = "Global Postioning System Fix Data"
+            self.current_utc_time = data[1]
+            self.latitude_deg = self.data[2] # + self.data[3]
+            self.longitude_deg = self.data[4] # + self.data[5]
+            self.num_satellites = self.data[7]
+            self.horizontal_dilution_pos = self.data[8]
+            self.altitude = self.data[9]
+
+            data = [
+                self.latitude_deg,
+                self.longitude_deg,
+                self.altitude,
+                self.num_satellites,
+                self.horizontal_dilution_pos,
+            ]
+
+            return data
 
         if data[0:5] == "GPGGA":
             self.data = data.split(",")

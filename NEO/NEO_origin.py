@@ -116,8 +116,14 @@ class NEO:
         longitude = data["longitude"]
         altitude = data["altitude"]
         num_satellites = data["num_satellites"]
+<<<<<<< HEAD
 
         return latitude, longitude, altitude, num_satellites
+=======
+        horizontal_dilution_pos = data["horizontal_dilution_pos"]
+
+        return latitude, longitude, altitude, num_satellites, horizontal_dilution_pos
+>>>>>>> 39727a35187c3335ba048180a5cf79b4a4d0f9ca
 
 if __name__ == "__main__":
     neo = NEO()
