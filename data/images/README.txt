@@ -1,1 +1,1 @@
-Do not setup this folder as empty folder.
+Do not setup this folder as an empty folder.
