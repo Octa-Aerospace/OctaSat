@@ -1,25 +1,51 @@
-import os
-import datetime
-from modules.OctaSat import OctaSat
+from time import sleep
+#
+from modules.Buzzer import Buzzer
+from modules.Camera import Camera
+from modules.GY91 import GY91
+# from modules.E32 import E32
+# from modules.GPS import GPS
 
-OctaSat = OctaSat()
+class OctaSat:
+  def __init__(self):
+    self.BUZZER_PIN = 12
+    self.I2C_ADDRESS = 0x68
+  
+  def init(self):
+    self.gy91 = GY91(self.I2C_ADDRESS)
+    self.camera = Camera()
+    # self.e32 = E32()
 
-if __name__ == '__main__':
-    while True:
-        try:
-            OctaSat.start()
+    self.buzzer = Buzzer(self.BUZZER_PIN)
+    self.buzzer.init()
 
-        # except OSError:
-        #     # print("\n[ ! ] Warning: OSError detected, rebooting system.\n")
-        #
-        #     os.system("sudo reboot") #* the error should be added to the csv file
+  def read_data(self):
+    accel = self.gy91.get_accel()
+    gyro = self.gy91.get_gyro()
+    mag = self.gy91.get_mag()
 
-        except KeyboardInterrupt:
-            print("\n[ ! ] Exiting\n")
-            exit()
+    print(f"Accelerometer: {accel.x} {accel.y} {accel.z}")
+    print(f"Gyroscope: {gyro.x} {gyro.y} {gyro.z}")
+    print(f"Magnetometer: {mag.x} {mag.y} {mag.z}")
+    print("\n")
+    # latitude, longitude, altitude = self.gps.read_data()
+    pass
 
-        # for unknown errors
-        except Exception as e:
-            with open("/home/pi/OctaSat/data/error_log.txt", "a+") as file:
-                file.write("{0} at {1}\n\n".format(e, OctaSat.Time()))
-            os.system("sudo reboot")
+  def save_data(self):
+    pass
+
+  def send_data(self):
+    pass
+
+  def kill(self):
+    self.buzzer.destroy()
+
+if __name__ == "__main__":
+  device = OctaSat()
+  device.init()
+
+  for i in range(5):
+    device.read_data()
+    sleep(1)
+
+  device.kill()
