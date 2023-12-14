@@ -1,5 +1,6 @@
 #
 from modules.Buzzer import Buzzer
+from modules.Camera import Camera
 
 PIN_BUZZER = 12
 
