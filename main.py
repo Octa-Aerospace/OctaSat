@@ -3,8 +3,8 @@ from time import sleep
 from modules.Buzzer import Buzzer
 from modules.Camera import Camera
 from modules.GY91 import GY91
+from modules.GPS import GPS
 # from modules.E32 import E32
-# from modules.GPS import GPS
 
 class OctaSat:
   def __init__(self):
@@ -14,25 +14,38 @@ class OctaSat:
   def init(self):
     self.gy91 = GY91(self.I2C_ADDRESS)
     self.camera = Camera()
+    self.gps = GPS()
     # self.e32 = E32()
 
     self.buzzer = Buzzer(self.BUZZER_PIN)
     self.buzzer.init()
+    
+    data = self.read_data()
+    self.save_data(data)
+    self.send_data()
+    self.kill()
 
   def read_data(self):
     accel = self.gy91.get_accel()
     gyro = self.gy91.get_gyro()
     mag = self.gy91.get_mag()
+    latitude, longitude, altitude = self.gps.get_data()
+    
+    with open('data/data.csv', '+a') as file:
+      file.write(f"{accel},{gyro},{mag},{latitude},{longitude},{altitude}\n")
+    
+    return {
+      'accel': accel,
+      'gyro': gyro,
+      'mag': mag,
+      'latitude': latitude,
+      'longitude': longitude,
+      'altitude': altitude,
+    }
 
-    print(f"Accelerometer: {accel.x} {accel.y} {accel.z}")
-    print(f"Gyroscope: {gyro.x} {gyro.y} {gyro.z}")
-    print(f"Magnetometer: {mag.x} {mag.y} {mag.z}")
-    print("\n")
-    # latitude, longitude, altitude = self.gps.read_data()
-    pass
-
-  def save_data(self):
-    pass
+  def save_data(self, data):
+    with open('data/data.csv', '+a') as file:
+      file.write(f"{data['accel']},{data['gyro']},{data['mag']},{data['latitude']},{data['longitude']},{data['altitude']}\n")
 
   def send_data(self):
     pass
